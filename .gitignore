@@ -1,0 +1,17 @@
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+
+# Arquivos de banco de dados SQLite
+*.db
+*.db3
+*.sqlite
+*.sqlite3
+
+# Variáveis de ambiente
+.env
+
+# Pasta de ambiente virtual (se você tiver uma)
+.venv/
+venv/
+env/
