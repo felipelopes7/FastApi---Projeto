@@ -1,14 +1,43 @@
 from http import HTTPStatus
 
-from fastapi.testclient import TestClient
 
-from fastaulas.app import app
+def test_create_user(client):
+    response = client.post(
+        "/users/",
+        json={
+            "username": "testusername",
+            "password": "password",
+            "email": "tes@tes.com",
+        },
+    )  # act (ação)
+
+    assert response.status_code == HTTPStatus.CREATED
+
+    assert response.json() == {
+        "username": "testusername",
+        "email": "tes@tes.com",
+        "id": 1,
+    }
 
 
-def test_read_root_deve_retornar_ok_e_ola_mmundo():
-    client = TestClient(app)  # arrange (organização)
-
-    response = client.get("/")  # act (ação)
+def test_read_users(client):
+    response = client.get("/users/")
 
     assert response.status_code == HTTPStatus.OK
-    assert response.json() == {"message": "Olá, mundo"}
+    assert response.json() == {
+        "users": [
+            {"username": "testusername", "email": "tes@tes.com", "id": 1}
+        ]
+    }
+
+
+def test_update_user(client):
+    response = client.put(
+        '/users/1',
+        json={
+            "username": "testusername", "email": "tes@tes.com", "id": 1, "password": "senha1"
+
+        }
+        )
+
+ # assert response.status_code ==
